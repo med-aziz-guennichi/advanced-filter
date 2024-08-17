@@ -121,11 +121,6 @@ export default function Home() {
     const isFilterApplied = filter[category].includes(value as never)
 
     if (isFilterApplied) {
-      setFilter((prev) => ({
-        ...prev,
-        [category]: prev[category].filter((v) => v !== value),
-      }))
-    } else {
       setFilter((prev) => {
         const categoryFilter = prev[category];
         if (Array.isArray(categoryFilter)) {
@@ -136,6 +131,11 @@ export default function Home() {
         }
         return prev;
       });
+    } else {
+      setFilter((prev) => ({
+        ...prev,
+        [category]: [...prev[category], value],
+      }))
     }
 
     _debouncedSubmit()
