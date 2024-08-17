@@ -126,10 +126,16 @@ export default function Home() {
         [category]: prev[category].filter((v) => v !== value),
       }))
     } else {
-      setFilter((prev) => ({
-        ...prev,
-        [category]: [...prev[category], value],
-      }))
+      setFilter((prev) => {
+        const categoryFilter = prev[category];
+        if (Array.isArray(categoryFilter)) {
+          return {
+            ...prev,
+            [category]: categoryFilter.filter((v) => v !== value),
+          };
+        }
+        return prev;
+      });
     }
 
     _debouncedSubmit()
