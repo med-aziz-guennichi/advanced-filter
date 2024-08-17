@@ -127,7 +127,7 @@ export default function Home() {
         if (Array.isArray(categoryFilter)) {
           return {
             ...prev,
-            [category]: categoryFilter.filter((v) => v !== value),
+            [category]: (categoryFilter as ("S" | "M" | "L")[]).filter((v) => v !== value),
           };
         }
         return prev;
